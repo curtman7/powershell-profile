@@ -14,22 +14,22 @@
 ### more information about execution policies, run Get-Help about_Execution_Policies.
 
 #check for updates
-try{
-    $url = "https://raw.githubusercontent.com/ChrisTitusTech/powershell-profile/main/Microsoft.PowerShell_profile.ps1"
-    $oldhash = Get-FileHash $PROFILE
-    Invoke-RestMethod $url -OutFile "$env:temp/Microsoft.PowerShell_profile.ps1"
-    $newhash = Get-FileHash "$env:temp/Microsoft.PowerShell_profile.ps1"
-    if ($newhash -ne $oldhash) {
-        Get-Content "$env:temp/Microsoft.PowerShell_profile.ps1" | Set-Content $PROFILE
-        . $PROFILE
-        return
-    }
-}
-catch {
-    Write-Error "unable to check for `$profile updates"
-}
-Remove-Variable @("newhash", "oldhash", "url")
-Remove-Item  "$env:temp/Microsoft.PowerShell_profile.ps1"
+# try{
+#     $url = "https://raw.githubusercontent.com/ChrisTitusTech/powershell-profile/main/Microsoft.PowerShell_profile.ps1"
+#     $oldhash = Get-FileHash $PROFILE
+#     Invoke-RestMethod $url -OutFile "$env:temp/Microsoft.PowerShell_profile.ps1"
+#     $newhash = Get-FileHash "$env:temp/Microsoft.PowerShell_profile.ps1"
+#     if ($newhash -ne $oldhash) {
+#         Get-Content "$env:temp/Microsoft.PowerShell_profile.ps1" | Set-Content $PROFILE
+#         . $PROFILE
+#         return
+#     }
+# }
+# catch {
+#     Write-Error "unable to check for `$profile updates"
+# }
+# Remove-Variable @("newhash", "oldhash", "url")
+# Remove-Item  "$env:temp/Microsoft.PowerShell_profile.ps1"
 
 # Import Terminal Icons
 Import-Module -Name Terminal-Icons
@@ -155,7 +155,7 @@ Set-Alias -Name vim -Value $EDITOR
 
 
 function ll { Get-ChildItem -Path $pwd -File }
-function g { Set-Location $HOME\Documents\Github }
+function g { Set-Location "\\hdlcompanies\softwaredata\users\curtis\Documents\Github" }
 function gcom {
     git add .
     git commit -m "$args"
@@ -238,4 +238,4 @@ Invoke-Expression (& { (zoxide init powershell | Out-String) })
 
 
 ## Final Line to set prompt
-oh-my-posh init pwsh --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/cobalt2.omp.json | Invoke-Expression
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PAHT\cobalt2.omp.json" | Invoke-Expression
